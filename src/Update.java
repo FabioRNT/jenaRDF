@@ -13,7 +13,7 @@ import org.apache.jena.sparql.vocabulary.FOAF;
 public class Update {
 
 	//initializing Input Scanner
-	Scanner sc = new Scanner(System.in);
+	Scanner _sc = new Scanner(System.in);
 	
 	public Model update(Model _pModel) {
 		
@@ -33,10 +33,11 @@ public class Update {
 		
 		//display a list of names
 		System.out.println("List of Names: ");	
+		System.out.println("\n");
 		while (_rs.hasNext()) {
-            QuerySolution soln = _rs.nextSolution();
-            Literal name = soln.getLiteral("name");
-            System.out.println(name);
+            QuerySolution _soln = _rs.nextSolution();
+            Literal _name = _soln.getLiteral("name");
+            System.out.println("Name: " + _name);
         }
 		
 		_qexec.close();
@@ -44,11 +45,12 @@ public class Update {
 		//initialize strings and get the relationship that the user wants (validations missing!)
 		String _name1, _name2 = "";
 		
+        System.out.println("\n");
 		System.out.println("Write the name of a user: ");
-		_name1 = sc.nextLine();
+		_name1 = _sc.nextLine();
 	
 		System.out.println("This user Knows: ");
-		_name2 = sc.nextLine();
+		_name2 = _sc.nextLine();
 		
 		//adds the know relationship
 		_model.getResource("http://example.org/" + _name1).addProperty(FOAF.knows, "http://example.org/" + _name2);

@@ -12,7 +12,7 @@ public class Create {
 	
 	//initializing RDF model and Input Scanner
 	Model _model = ModelFactory.createDefaultModel();
-	Scanner sc = new Scanner(System.in);
+	Scanner _sc = new Scanner(System.in);
 		  
      public  Model create() {
     	 
@@ -22,10 +22,10 @@ public class Create {
     	 
     	 //read name & email
     	 System.out.println("Name:");
-    	 _name = sc.nextLine();
+    	 _name = _sc.nextLine();
     	  	 
     	 System.out.println("E-mail:");
-    	 _email = sc.nextLine();
+    	 _email = _sc.nextLine();
     	 
     	 //create a resource by setting an URI and add triples (subject - name - name; subject - email - mailto:mail)
 	     Resource _person= ResourceFactory.createResource("http://example.org/" + _name);

@@ -14,7 +14,7 @@ import org.apache.jena.rdf.model.Resource;
 public class Delete {
 	
 	//initializing Input Scanner
-	Scanner sc = new Scanner(System.in);
+	Scanner _sc = new Scanner(System.in);
 	
 	public Model delete(Model _pModel) {
 			
@@ -33,11 +33,12 @@ public class Delete {
 		ResultSet _rs = _qexec.execSelect();		
 		
 		//display a list of names
-		System.out.println("List of Names: ");	
+		System.out.println("List of Names: ");
+		System.out.println("\n");
 		while (_rs.hasNext()) {
-            QuerySolution soln = _rs.nextSolution();
-            Literal name = soln.getLiteral("name");
-            System.out.println(name);
+            QuerySolution _soln = _rs.nextSolution();
+            Literal _name = _soln.getLiteral("name");
+            System.out.println("Name: " + _name);
         }
 		
 		_qexec.close();
@@ -45,8 +46,9 @@ public class Delete {
 		//initialize string and read the user to be deleted(validations missing!)
 		String _name = "";
 		
+        System.out.println("\n");
 		System.out.println("Write the name of the user to be deleted: ");
-		_name = sc.nextLine();
+		_name = _sc.nextLine();
 		
 		Resource _delResource = _model.getResource("http://example.org/" + _name);
 		
@@ -54,10 +56,9 @@ public class Delete {
 		String _confirm = "";
 		
 		System.out.println("Are you sure? (Y/N)");
-		_confirm = sc.nextLine().toUpperCase();
+		_confirm = _sc.nextLine().toUpperCase();
 		
-		if(_confirm.equals("Y")) 
-		{
+		if(_confirm.equals("Y")) {
 			//remove statements where resource is subject
 			_model.removeAll(_delResource, null, (RDFNode) null);
 			//remove statements where resource is object
