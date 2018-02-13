@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 import org.apache.jena.rdf.model.Model;
@@ -5,7 +6,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
 		//initialize RDF Model, Input Scanner, and CRUD Classes
@@ -15,6 +16,7 @@ public class Main {
 		Read _readUser = new Read();
 		Update _updateUser = new Update();
 		Delete _deleteUser = new Delete();
+		Fuseki _fusekiRDF = new Fuseki();
 		
 		//initialize variables
 		int option = 0;
@@ -30,6 +32,8 @@ public class Main {
 			System.out.println("3 - Read Users in RDF/XML format");
 			System.out.println("4 - Add know relationships");
 			System.out.println("5 - Delete resources");
+			System.out.println("6 - Upload RDF/XML to Fuseki");
+			System.out.println("7 - Get RDF/XML from Fuseki");
 			System.out.println("0 - Exit");
 			System.out.println("Select an option: ");;
 			option = sc.nextInt();
@@ -58,6 +62,18 @@ public class Main {
 			//delete resources
 			if(option == 5) {
 				_mainModel = _deleteUser.delete(_mainModel);
+			}
+			
+			//upload RDF/XML
+			if(option == 6) {
+					_fusekiRDF.uploadRDF(_mainModel, "http://localhost:3030/ds/");
+
+			}
+			
+			//get RDF/XML
+			if(option == 7) {
+					_mainModel = _fusekiRDF.getRDF("http://localhost:3030/ds/data");
+
 			}
 			
 		}while(option != 0);
