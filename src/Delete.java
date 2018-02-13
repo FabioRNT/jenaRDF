@@ -8,15 +8,16 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.sparql.vocabulary.FOAF;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
 
-public class Update {
-
+public class Delete {
+	
 	//initializing Input Scanner
 	Scanner sc = new Scanner(System.in);
 	
-	public Model update(Model _pModel) {
-		
+	public Model delete(Model _pModel) {
+			
 		//receive parameter from main class
 		Model _model = _pModel;
 		
@@ -41,19 +42,30 @@ public class Update {
 		
 		_qexec.close();
 		
-		//initialize strings and get the relationship that the user wants (validations missing!)
-		String _name1, _name2 = "";
+		//initialize string and read the user to be deleted(validations missing!)
+		String _name = "";
 		
-		System.out.println("Write the name of a user: ");
-		_name1 = sc.nextLine();
-	
-		System.out.println("This user Knows: ");
-		_name2 = sc.nextLine();
+		System.out.println("Write the name of the user to be deleted: ");
+		_name = sc.nextLine();
 		
-		//adds the know relationship
-		_model.getResource("http://example.org/" + _name1).addProperty(FOAF.knows, "http://example.org/" + _name2);
+		Resource _delResource = _model.getResource("http://example.org/" + _name);
+		
+		//confirmation
+		String _confirm = "";
+		
+		System.out.println("Are you sure? (Y/N)");
+		_confirm = sc.nextLine().toUpperCase();
+		
+		if(_confirm.equals("Y")) 
+		{
+			//remove statements where resource is subject
+			_model.removeAll(_delResource, null, (RDFNode) null);
+			//remove statements where resource is object
+			_model.removeAll(null, null, _model.createLiteral(_delResource.toString()));
+		}
+		
 		
 		return _model;
-	}
-	
+	}	
+
 }

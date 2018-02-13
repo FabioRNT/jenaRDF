@@ -13,6 +13,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		Create _createUser = new Create();
 		Update _updateUser = new Update();
+		Delete _deleteUser = new Delete();
 		
 		//initialize variables
 		int option = 0;
@@ -25,6 +26,7 @@ public class Main {
 			System.out.println("1 - Create User");
 			System.out.println("2 - Read Users in RDF/XML format");
 			System.out.println("3 - Add know relationships");
+			System.out.println("4 - Delete resources");
 			System.out.println("0 - Exit");
 			System.out.println("Select an option: ");
 			option = sc.nextInt();
@@ -42,6 +44,11 @@ public class Main {
 			//add know relationship
 			if(option == 3) {
 				_mainModel = _updateUser.update(_mainModel);
+			}
+			
+			//delete resources
+			if(option == 4) {
+				_mainModel = _deleteUser.delete(_mainModel);
 			}
 			
 		}while(option != 0);
