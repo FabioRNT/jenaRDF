@@ -2,7 +2,6 @@
 import java.util.Scanner;
 
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.sparql.vocabulary.FOAF;
@@ -11,11 +10,11 @@ import org.apache.jena.vocabulary.RDF;
 public class Create {
 	
 	//initializing RDF model and Input Scanner
-	Model _model = ModelFactory.createDefaultModel();
 	Scanner _sc = new Scanner(System.in);
 		  
-     public  Model create() {
+     public  Model create(Model _pModel) {
     	 
+    	 Model _model = _pModel;
     	 //initializing variables
     	 String _name = ""; 
     	 String _email = ""; 	 

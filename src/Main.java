@@ -11,12 +11,15 @@ public class Main {
 		
 		//initialize RDF Model, Input Scanner, and CRUD Classes
 		Model _mainModel = ModelFactory.createDefaultModel();
-		Scanner sc = new Scanner(System.in);
+		Scanner _sc = new Scanner(System.in);
 		Create _createUser = new Create();
 		Read _readUser = new Read();
 		Update _updateUser = new Update();
 		Delete _deleteUser = new Delete();
 		Fuseki _fusekiRDF = new Fuseki();
+		
+		//fuseki dataset URI
+		String _dsURI = "http://localhost:3030/ds/";
 		
 		//initialize variables
 		int option = 0;
@@ -34,14 +37,19 @@ public class Main {
 			System.out.println("5 - Delete resources");
 			System.out.println("6 - Upload RDF/XML to Fuseki");
 			System.out.println("7 - Get RDF/XML from Fuseki");
+			System.out.println("8 - Query by name from Fuseki");
 			System.out.println("0 - Exit");
 			System.out.println("Select an option: ");;
-			option = sc.nextInt();
+			option = _sc.nextInt();
+			
+			//skip the nextint line
+			_sc.nextLine();
+			
 			System.out.println("\n");
 			
 			//create user
 			if(option == 1) {
-				_mainModel = _createUser.create();
+				_mainModel = _createUser.create(_mainModel);
 			}
 			
 			//print users
@@ -66,19 +74,30 @@ public class Main {
 			
 			//upload RDF/XML
 			if(option == 6) {
-					_fusekiRDF.uploadRDF(_mainModel, "http://localhost:3030/ds/");
+				_fusekiRDF.uploadRDF(_mainModel, _dsURI);
 
 			}
 			
 			//get RDF/XML
 			if(option == 7) {
-					_mainModel = _fusekiRDF.getRDF("http://localhost:3030/ds/data");
+				_mainModel = _fusekiRDF.getRDF(_dsURI);
+
+			}
+			
+			//query by name from Fuseki
+			if(option == 8) {
+				String _name = "";
+				
+				System.out.println("Write the user name: ");
+				_name = _sc.nextLine();
+				
+				_fusekiRDF.selectUserByName(_dsURI, _name);
 
 			}
 			
 		}while(option != 0);
 		
-		sc.close();
+		_sc.close();
 		
 	}
 
