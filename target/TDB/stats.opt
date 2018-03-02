@@ -1,0 +1,6 @@
+(stats
+  (meta
+    (timestamp "2018-03-01T21:04:12.614-03:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>)
+    (run@ "2018/03/01 21:04:12 BRT")
+    (count 0))
+  (other 0))

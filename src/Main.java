@@ -17,9 +17,13 @@ public class Main {
 		Update _updateUser = new Update();
 		Delete _deleteUser = new Delete();
 		Fuseki _fusekiRDF = new Fuseki();
+		TDB _jenaTDB = new TDB();
 		
 		//fuseki dataset URI
 		String _dsURI = "http://localhost:3030/ds/";
+		
+		//TDB Model name
+		String _TDBmodel = "TDB-Model";
 		
 		//initialize variables
 		int option = 0;
@@ -30,15 +34,17 @@ public class Main {
 			//main menu and read option
 			System.out.println("\n");
 			System.out.println("Menu: ");
-			System.out.println("1 - Create User");
-			System.out.println("2 - Read Users");
-			System.out.println("3 - Read Users in RDF/XML format");
-			System.out.println("4 - Add know relationships");
-			System.out.println("5 - Delete resources");
-			System.out.println("6 - Upload RDF/XML to Fuseki");
-			System.out.println("7 - Get RDF/XML from Fuseki");
-			System.out.println("8 - Query by name from Fuseki");
-			System.out.println("0 - Exit");
+			System.out.println("1  - Create User");
+			System.out.println("2  - Read Users");
+			System.out.println("3  - Read Users in RDF/XML format");
+			System.out.println("4  - Add know relationships");
+			System.out.println("5  - Delete resources");
+			System.out.println("6  - Upload RDF/XML to Fuseki");
+			System.out.println("7  - Get RDF/XML from Fuseki");
+			System.out.println("8  - Query by name from Fuseki");
+			System.out.println("9  - Store model in TDB");
+			System.out.println("10 - Retrieve model from TDB");
+			System.out.println("0  - Exit");
 			System.out.println("Select an option: ");;
 			option = _sc.nextInt();
 			
@@ -92,6 +98,20 @@ public class Main {
 				_name = _sc.nextLine();
 				
 				_fusekiRDF.selectUserByName(_dsURI, _name);
+
+			}
+			
+			//store in TDB
+			if(option == 9) {
+				
+				_jenaTDB.TDBStore(_mainModel, _TDBmodel);
+
+			}
+			
+			//retrieve from TDB
+			if(option == 10) {
+				
+				_mainModel = _jenaTDB.TDBRetrieve(_TDBmodel);
 
 			}
 			
