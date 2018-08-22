@@ -36,7 +36,7 @@ public class Main {
 			System.out.println("Menu: ");
 			System.out.println("1  - Create User");
 			System.out.println("2  - Read Users");
-			System.out.println("3  - Read Users in RDF/XML format");
+			System.out.println("3  - Read Users in specific format");
 			System.out.println("4  - Add know relationships");
 			System.out.println("5  - Delete resources");
 			System.out.println("6  - Upload RDF/XML to Fuseki");
@@ -65,7 +65,18 @@ public class Main {
 			
 			//print RDF/XML
 			if(option == 3) {
-				_readUser.readRDFXML(_mainModel);
+				int format = 0;
+				
+				System.out.println("Select a format: ");
+				System.out.println("1  - RDF/XML");
+				System.out.println("2  - JSON-LD");
+				System.out.println("3  - Turtle");
+				format = _sc.nextInt();	
+				
+				_sc.nextLine();
+				System.out.println("\n");
+				
+				_readUser.readFormat(_mainModel, format);
 			}
 			
 			//add know relationship
